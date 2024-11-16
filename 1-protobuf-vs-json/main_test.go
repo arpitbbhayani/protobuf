@@ -2,15 +2,33 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"testing"
 
 	"google.golang.org/protobuf/proto"
 )
 
+var person = Person{
+	Name:          "Jane Doe",
+	Id:            2,
+	Email:         "jane.doe@example.com",
+	Phone:         "123-456-7890",
+	Address:       "123 Main St, Anytown, USA",
+	Age:           28,
+	Gender:        "Female",
+	Occupation:    "Engineer",
+	Nationality:   "American",
+	MaritalStatus: "Single",
+}
+
+func init() {
+	v, _ := json.MarshalIndent(&person, "", "  ")
+	fmt.Println(string(v))
+}
+
 func BenchmarkJSONSerialization(b *testing.B) {
-	person := &Person{Name: "John Doe", Age: 30, Email: "john.doe@example.com"}
 	for i := 0; i < b.N; i++ {
-		_, err := json.Marshal(person)
+		_, err := json.Marshal(&person)
 		if err != nil {
 			b.Error(err)
 		}
@@ -18,8 +36,7 @@ func BenchmarkJSONSerialization(b *testing.B) {
 }
 
 func BenchmarkJSONDeserialization(b *testing.B) {
-	person := &Person{Name: "John Doe", Age: 30, Email: "john.doe@example.com"}
-	data, err := json.Marshal(person)
+	data, err := json.Marshal(&person)
 	if err != nil {
 		b.Error(err)
 	}
@@ -33,9 +50,8 @@ func BenchmarkJSONDeserialization(b *testing.B) {
 }
 
 func BenchmarkProtobufSerialization(b *testing.B) {
-	person := &Person{Name: "John Doe", Age: 30, Email: "john.doe@example.com"}
 	for i := 0; i < b.N; i++ {
-		_, err := proto.Marshal(person)
+		_, err := proto.Marshal(&person)
 		if err != nil {
 			b.Error(err)
 		}
@@ -43,8 +59,7 @@ func BenchmarkProtobufSerialization(b *testing.B) {
 }
 
 func BenchmarkProtobufDeserialization(b *testing.B) {
-	person := &Person{Name: "John Doe", Age: 30, Email: "john.doe@example.com"}
-	data, err := proto.Marshal(person)
+	data, err := proto.Marshal(&person)
 	if err != nil {
 		b.Error(err)
 	}
@@ -58,9 +73,7 @@ func BenchmarkProtobufDeserialization(b *testing.B) {
 }
 
 func TestSizeComparison(t *testing.T) {
-	person := Person{Name: "John Doe", Age: 30, Email: "john.doe@example.com"}
-
-	jsonData, err := json.Marshal(person)
+	jsonData, err := json.Marshal(&person)
 	if err != nil {
 		t.Error(err)
 	}

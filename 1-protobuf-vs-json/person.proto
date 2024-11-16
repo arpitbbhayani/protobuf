@@ -4,6 +4,13 @@ option go_package = ".;main";
 
 message Person {
     string name = 1;
-    int32 age = 2;
+    int32 id = 2;
     string email = 3;
+    string phone = 4;
+    string address = 5;
+    int32 age = 6;
+    string gender = 7;
+    string occupation = 8;
+    string nationality = 9;
+    string marital_status = 10;
 }
