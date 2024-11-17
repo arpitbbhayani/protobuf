@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package models;
+option go_package = ".;models";
+
+import "protos/customer.proto";
+
+message Order {
+    string order_id = 1;
+    Customer customer = 2;
+    double amount = 3;
+}
