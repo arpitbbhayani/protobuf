@@ -1,0 +1,9 @@
+syntax = "proto2";
+
+package models;
+option go_package = ".;models";
+
+message Payment {
+    optional string payment_id = 1 [default = "p1"];    ;
+    optional int32 amount = 2 [default = 57];    ;
+}
