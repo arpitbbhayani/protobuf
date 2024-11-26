@@ -1,0 +1,17 @@
+syntax = "proto2";
+
+package models;
+option go_package = ".;models";
+
+enum OrderStatus2 {
+    ORDER_STATUS2_PENDING = 1;
+    ORDER_STATUS2_PROCESSING = 2;
+    ORDER_STATUS2_SHIPPED = 3;
+    ORDER_STATUS2_DELIVERED = 4;
+}
+
+message Order2 {
+    required string order_id = 1;
+    required double amount = 2;
+    required OrderStatus2 status = 3;
+}

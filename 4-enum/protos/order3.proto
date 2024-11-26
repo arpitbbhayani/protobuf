@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package models;
+option go_package = ".;models";
+
+enum OrderStatus3 {
+    // remove ORDER_STATUS3 prefixes and it gives a compile-time error
+    ORDER_STATUS3_UNSPECIFIDED = 0;  // remove this line and it gives a compile-time error
+    ORDER_STATUS3_PENDING = 1;
+    ORDER_STATUS3_PROCESSING = 2;
+    ORDER_STATUS3_SHIPPED = 3;
+    ORDER_STATUS3_DELIVERED = 4;
+}
+
+message Order3 {
+    string order_id = 1;
+    double amount = 2;
+    OrderStatus3 status = 3;
+}
